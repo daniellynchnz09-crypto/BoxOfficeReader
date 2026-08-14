@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0b0a10;
+  --bg-elevated: #14121b;
+  --surface: #1c1926;
+  --surface-border: #2f2a3d;
+  --gold: #d9a441;
+  --gold-soft: #f0cd7f;
+  --crimson: #b3242c;
+  --cream: #f3eee1;
+  --muted: #a29cb3;
+  --muted-dim: #6f6a80;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface: var(--surface);
+  --color-surface-border: var(--surface-border);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-crimson: var(--crimson);
+  --color-cream: var(--cream);
+  --color-muted: var(--muted);
+  --font-display: var(--font-marquee);
+  --font-body: var(--font-editorial);
+  --font-mono: var(--font-ledger);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(217, 164, 65, 0.08), transparent),
+    var(--bg);
+  color: var(--cream);
+  font-family: var(--font-body);
+}
+
+/* Marquee bulb strip — the recurring cinema-house texture used behind headers */
+.bulb-strip {
+  display: flex;
+  gap: 0.5rem;
+  overflow: hidden;
+}
+
+.bulb-strip span {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--gold);
+  opacity: 0.35;
+  flex-shrink: 0;
+  animation: bulb-flicker 3.2s ease-in-out infinite;
+}
+
+@keyframes bulb-flicker {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+/* Ticket-stub rank badge — the signature element. Every film is ranked the way
+   a box office is actually measured: by tickets torn at the door. */
+.ticket-stub {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3.25rem;
+  height: 4.5rem;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+  color: var(--gold-soft);
+}
+
+.ticket-stub::before,
+.ticket-stub::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  height: 0;
+  border-top: 1.5px dashed var(--surface-border);
+}
+
+.ticket-stub::before {
+  top: 30%;
+}
+
+.ticket-stub::after {
+  top: 68%;
+}
+
+.ticket-stub--top {
+  border-color: var(--gold);
+  color: var(--gold-soft);
+  box-shadow: 0 0 0 1px rgba(217, 164, 65, 0.25), 0 8px 24px -8px rgba(217, 164, 65, 0.5);
+}
+
+/* Gross meter — horizontal bar scaled against the #1 film's worldwide gross */
+.gross-meter {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.gross-meter > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--crimson), var(--gold));
+}
+
+.film-row {
+  animation: row-rise 0.5s ease backwards;
+}
+
+@keyframes row-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .film-row,
+  .bulb-strip span {
+    animation: none !important;
+  }
+}
