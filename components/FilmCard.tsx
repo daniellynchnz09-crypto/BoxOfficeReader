@@ -37,6 +37,18 @@ export function FilmCard({
         className="flex w-full cursor-pointer items-center gap-4 p-3 text-left sm:gap-5 sm:p-4"
       >
         <div className={`ticket-stub ${film.rank === 1 ? "ticket-stub--top" : ""}`}>
+          {film.rank === 1 && (
+            <svg
+              viewBox="0 0 24 16"
+              className="ticket-stub-crown h-3.5 w-6"
+              aria-hidden="true"
+            >
+              <path
+                d="M2 14 L1 5 L6 9 L12 2 L18 9 L23 5 L22 14 Z"
+                fill="currentColor"
+              />
+            </svg>
+          )}
           {film.rank}
         </div>
 
@@ -58,7 +70,7 @@ export function FilmCard({
           <Link
             href={`/movie/${encodeURIComponent(film.name)}`}
             onClick={(e) => e.stopPropagation()}
-            className="truncate font-body text-base text-cream underline-offset-4 hover:text-gold-soft hover:underline sm:text-lg"
+            className={`truncate font-body text-base text-cream underline-offset-4 hover:text-gold-soft hover:underline sm:text-lg ${expanded ? "title-glow" : ""}`}
           >
             {film.name}
           </Link>
@@ -97,64 +109,66 @@ export function FilmCard({
         </svg>
       </div>
 
-      {expanded && (
-        <div className="border-t border-surface-border p-4 sm:p-6">
-          <div className="flex flex-col gap-6 sm:flex-row">
-            {film.poster ? (
-              <div className="relative h-44 w-28 shrink-0 overflow-hidden rounded border border-surface-border sm:h-52 sm:w-36">
-                <Image
-                  src={film.poster}
-                  alt={`${film.name} poster`}
-                  fill
-                  sizes="144px"
-                  className="object-cover"
-                />
-              </div>
-            ) : (
-              <PosterFallback name={film.name} className="h-44 w-28 sm:h-52 sm:w-36" />
-            )}
-
-            <div className="min-w-0 flex-1">
-              <dl className="grid grid-cols-3 gap-4">
-                <Stat label="Domestic" value={formatGross(film.domesticGross)} />
-                <Stat
-                  label="International"
-                  value={formatGross(film.internationalGross)}
-                />
-                <Stat
-                  label="Worldwide"
-                  value={formatGross(film.worldwideGross)}
-                  accent
-                />
-              </dl>
-
-              {film.funFact && (
-                <p className="mt-5 border-l-2 border-gold/60 pl-3 font-body text-sm italic text-muted">
-                  {film.funFact}
-                </p>
+      <div className={`expand-panel ${expanded ? "is-open" : ""}`}>
+        <div>
+          <div className="border-t border-surface-border p-4 sm:p-6">
+            <div className="flex flex-col gap-6 sm:flex-row">
+              {film.poster ? (
+                <div className="relative h-44 w-28 shrink-0 overflow-hidden rounded border border-surface-border sm:h-52 sm:w-36">
+                  <Image
+                    src={film.poster}
+                    alt={`${film.name} poster`}
+                    fill
+                    sizes="144px"
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <PosterFallback name={film.name} className="h-44 w-28 sm:h-52 sm:w-36" />
               )}
 
-              <div className="mt-5">
-                <p className="mb-2 font-mono text-[0.65rem] uppercase tracking-wide text-muted-dim">
-                  Cumulative gross by week in theatres
-                </p>
-                <Sparkline weeks={weeks} values={film.weeklyGross} />
-              </div>
+              <div className="min-w-0 flex-1">
+                <dl className="grid grid-cols-3 gap-4">
+                  <Stat label="Domestic" value={formatGross(film.domesticGross)} />
+                  <Stat
+                    label="International"
+                    value={formatGross(film.internationalGross)}
+                  />
+                  <Stat
+                    label="Worldwide"
+                    value={formatGross(film.worldwideGross)}
+                    accent
+                  />
+                </dl>
 
-              {film.imdbLink && (
-                <a
-                  href={film.imdbLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 inline-flex w-fit items-center gap-1.5 font-mono text-xs uppercase tracking-wide text-gold-soft underline decoration-gold/40 underline-offset-4 hover:text-gold"
-                >
-                  View on IMDb →
-                </a>
-              )}
+                {film.funFact && (
+                  <p className="mt-5 border-l-2 border-gold/60 pl-3 font-body text-sm italic text-muted">
+                    {film.funFact}
+                  </p>
+                )}
+
+                <div className="mt-5">
+                  <p className="mb-2 font-mono text-[0.65rem] uppercase tracking-wide text-muted-dim">
+                    Cumulative gross by week in theatres
+                  </p>
+                  <Sparkline weeks={weeks} values={film.weeklyGross} />
+                </div>
+
+                {film.imdbLink && (
+                  <a
+                    href={film.imdbLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-5 inline-flex w-fit items-center gap-1.5 font-mono text-xs uppercase tracking-wide text-gold-soft underline decoration-gold/40 underline-offset-4 hover:text-gold"
+                  >
+                    View on IMDb →
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </li>
   );
 }

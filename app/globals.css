@@ -38,7 +38,8 @@ html {
 
 body {
   background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(217, 164, 65, 0.08), transparent),
+    radial-gradient(ellipse 90% 60% at 50% -15%, rgba(217, 164, 65, 0.18), transparent 65%),
+    radial-gradient(ellipse 70% 55% at 100% 105%, rgba(179, 36, 44, 0.14), transparent 70%),
     var(--bg);
   color: var(--cream);
   font-family: var(--font-body);
@@ -111,7 +112,40 @@ body {
 .ticket-stub--top {
   border-color: var(--gold);
   color: var(--gold-soft);
-  box-shadow: 0 0 0 1px rgba(217, 164, 65, 0.25), 0 8px 24px -8px rgba(217, 164, 65, 0.5);
+}
+
+/* Crown worn by the #1 ticket stub — replaces the old always-on glow */
+.ticket-stub-crown {
+  position: absolute;
+  top: -0.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--gold);
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
+}
+
+/* Gold glow reused on a film's title once its card is expanded open */
+.title-glow {
+  text-shadow:
+    0 0 14px rgba(217, 164, 65, 0.55),
+    0 0 30px rgba(217, 164, 65, 0.3);
+}
+
+/* Expand panel — animates open/closed via an intrinsic-height grid track,
+   so it works without knowing the content's height in advance. */
+.expand-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s ease;
+}
+
+.expand-panel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.expand-panel > div {
+  overflow: hidden;
+  min-height: 0;
 }
 
 /* Gross meter — horizontal bar scaled against the #1 film's worldwide gross */
@@ -149,5 +183,9 @@ body {
   .film-row,
   .bulb-strip span {
     animation: none !important;
+  }
+
+  .expand-panel {
+    transition: none !important;
   }
 }

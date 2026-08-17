@@ -20,19 +20,6 @@ export interface Top25Response {
   films: Film[];
 }
 
-function withWeeklyDefaults(data: {
-  generatedAt: string;
-  count: number;
-  weeks?: number[];
-  films: Omit<Film, "weeklyGross">[];
-}): Top25Response {
-  return {
-    ...data,
-    weeks: data.weeks ?? [],
-    films: data.films.map((f) => ({ ...f, weeklyGross: [] })),
-  };
-}
-
 export interface FilmDetail {
   name: string;
   rank: number | null;
@@ -49,13 +36,37 @@ export interface FilmDetail {
   cast: string;
 }
 
+function withWeeklyDefaults(data: {
+  generatedAt: string;
+  count: number;
+  weeks?: number[];
+  films: Omit<Film, "weeklyGross">[];
+}): Top25Response {
+  return {
+    ...data,
+    weeks: data.weeks ?? [],
+    films: data.films.map((f) => ({ ...f, weeklyGross: [] })),
+  };
+}
+
+function webhookHeaders(): HeadersInit {
+  const secret = process.env.N8N_WEBHOOK_SECRET;
+  if (!secret) {
+    throw new Error("N8N_WEBHOOK_SECRET is not set. Add it to .env.local.");
+  }
+  return { "X-Webhook-Secret": secret };
+}
+
 export async function getTop25(): Promise<Top25Response> {
   const url = process.env.N8N_WEBHOOK_URL;
   if (!url) {
     throw new Error("N8N_WEBHOOK_URL is not set. Add it to .env.local.");
   }
 
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetch(url, {
+    headers: webhookHeaders(),
+    next: { revalidate: 300 },
+  });
 
   if (!res.ok) {
     throw new Error(`n8n webhook responded with ${res.status}`);
@@ -71,7 +82,8 @@ export async function getFilmDetail(name: string): Promise<FilmDetail | null> {
   }
 
   const res = await fetch(`${url}?name=${encodeURIComponent(name)}`, {
-    cache: "no-store",
+    headers: webhookHeaders(),
+    next: { revalidate: 300 },
   });
 
   if (!res.ok) {

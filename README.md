@@ -30,9 +30,10 @@ Open [http://localhost:3000](http://localhost:3000).
 | --- | --- |
 | `N8N_WEBHOOK_URL` | GET endpoint returning the Top 25 list as JSON |
 | `N8N_FILM_DETAIL_WEBHOOK_URL` | GET endpoint (`?name=`) returning a single film's detail |
+| `N8N_WEBHOOK_SECRET` | Shared secret sent as the `X-Webhook-Secret` header on both requests; must match the `httpHeaderAuth` credential on the n8n webhooks |
 
 Both point at webhooks on the `Box Office Top 25 API` n8n workflow, which reads from the same Google Sheet and n8n Data Tables the daily `Box Office Mojo Top 25 Tracker` workflow maintains.
 
 ## Deployment
 
-Deployed on Vercel, connected to this GitHub repo. Set the two environment variables above in the Vercel project settings — pushes to `main` auto-deploy.
+Deployed on Vercel, connected to this GitHub repo. Set the three environment variables above in the Vercel project settings — pushes to `main` auto-deploy.

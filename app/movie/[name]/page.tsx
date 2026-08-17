@@ -39,7 +39,24 @@ export default async function MoviePage(props: PageProps<"/movie/[name]">) {
   }
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-5 pb-24 pt-14 sm:px-8">
+    <>
+      {film.poster && (
+        <div
+          className="fixed inset-0 -z-10 overflow-hidden bg-bg"
+          aria-hidden="true"
+        >
+          <Image
+            src={film.poster}
+            alt=""
+            fill
+            sizes="100vw"
+            className="scale-125 object-cover opacity-35 blur-3xl"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-bg/60 via-bg/80 to-bg" />
+        </div>
+      )}
+
+      <main className="mx-auto w-full max-w-3xl flex-1 px-5 pb-24 pt-14 sm:px-8">
       <Link
         href="/"
         className="font-mono text-xs uppercase tracking-wide text-muted hover:text-gold-soft"
@@ -128,6 +145,7 @@ export default async function MoviePage(props: PageProps<"/movie/[name]">) {
         </a>
       )}
     </main>
+    </>
   );
 }
 

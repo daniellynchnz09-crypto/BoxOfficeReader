@@ -77,6 +77,25 @@ export default async function Home() {
           Scraped from Box Office Mojo · enriched with OMDb &amp; Gemini ·
           rebuilt every morning by an n8n workflow
         </p>
+        <p className="mt-3 font-mono text-[0.7rem] uppercase tracking-[0.18em]">
+          <a
+            href="https://docs.google.com/spreadsheets/d/1on_wnjoDb8r56hkvFfjIuz8aKg4kGFQBSyB1rd4PJ7w/edit?usp=sharing"
+            target="_blank"
+            rel="noreferrer"
+            className="text-gold-soft underline decoration-gold/40 underline-offset-4 hover:text-gold"
+          >
+            View the source sheet
+          </a>
+          <span className="text-muted-dim"> · </span>
+          <a
+            href="https://docs.google.com/presentation/d/1M6HHT_LkYTIGLGCK-904kO2Y1KwC34_hQGDSRYIL4ps/edit?usp=sharing"
+            target="_blank"
+            rel="noreferrer"
+            className="text-gold-soft underline decoration-gold/40 underline-offset-4 hover:text-gold"
+          >
+            View the slide deck
+          </a>
+        </p>
       </footer>
     </main>
   );
