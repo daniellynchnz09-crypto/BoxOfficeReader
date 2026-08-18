@@ -62,8 +62,12 @@ export function niceTicks(maxValue: number, tickCount = 4): number[] {
   const niceStep =
     (residual > 5 ? 10 : residual > 2 ? 5 : residual > 1 ? 2 : 1) * magnitude;
 
+  // The top tick must be >= maxValue, not just <= it - otherwise a data
+  // point can fall above the last gridline and render outside the plot area.
+  const topTick = Math.ceil(maxValue / niceStep) * niceStep;
+
   const ticks: number[] = [];
-  for (let v = 0; v <= maxValue + niceStep * 0.001; v += niceStep) {
+  for (let v = 0; v <= topTick + niceStep * 0.001; v += niceStep) {
     ticks.push(Math.round(v));
   }
   return ticks;
