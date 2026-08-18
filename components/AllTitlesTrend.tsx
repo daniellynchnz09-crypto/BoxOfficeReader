@@ -26,7 +26,6 @@ export function AllTitlesTrend({
   films: Film[];
   weeks: number[];
 }) {
-  const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string | null>(null);
 
   const series: Series[] = films
@@ -41,58 +40,24 @@ export function AllTitlesTrend({
 
   const hasData = series.length > 0 && weeks.length > 0;
 
-  return (
-    <div className="mt-14 overflow-hidden rounded-md border border-surface-border bg-surface/60">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        className="flex w-full items-center justify-between gap-4 p-4 text-left sm:p-5"
-      >
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">
-            All 25, one chart
-          </p>
-          <p className="mt-1 font-body text-lg text-cream">
-            Compare every title&apos;s weekly trajectory
-          </p>
-        </div>
-        <svg
-          viewBox="0 0 20 20"
-          className={`h-4 w-4 shrink-0 text-muted-dim transition-transform ${open ? "rotate-180" : ""}`}
-          aria-hidden="true"
-        >
-          <path
-            d="M5 8l5 5 5-5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.75}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </button>
+  if (!hasData) {
+    return (
+      <p className="mt-14 font-mono text-xs text-muted-dim">
+        Not enough weekly data tracked yet to compare trajectories.
+      </p>
+    );
+  }
 
-      <div className={`expand-panel ${open ? "is-open" : ""}`}>
-        <div>
-          <div className="border-t border-surface-border p-4 sm:p-6">
-            {!hasData ? (
-              <p className="font-mono text-xs text-muted-dim">
-                Not enough weekly data tracked yet to compare trajectories.
-              </p>
-            ) : (
-              <TrendMultiChart
-                series={series}
-                weeks={weeks}
-                active={active}
-                onToggle={(name) =>
-                  setActive((cur) => (cur === name ? null : name))
-                }
-              />
-            )}
-          </div>
-        </div>
-      </div>
+  return (
+    <div className="mt-14">
+      <TrendMultiChart
+        series={series}
+        weeks={weeks}
+        active={active}
+        onToggle={(name) =>
+          setActive((cur) => (cur === name ? null : name))
+        }
+      />
     </div>
   );
 }
