@@ -1,5 +1,6 @@
 import { getTop25 } from "@/lib/n8n";
 import { FilmCard } from "@/components/FilmCard";
+import { AllTitlesTrend } from "@/components/AllTitlesTrend";
 
 export default async function Home() {
   let data;
@@ -71,6 +72,8 @@ export default async function Home() {
           </div>
         ))}
       </ol>
+
+      <AllTitlesTrend films={films} weeks={weeks} />
 
       <footer className="mt-16 border-t border-surface-border pt-6 text-center">
         <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted-dim">
