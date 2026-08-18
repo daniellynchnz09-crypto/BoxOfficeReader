@@ -9,7 +9,7 @@ export interface Film {
   imdbLink: string;
   poster: string;
   funFact: string;
-  /** Cumulative worldwide gross by week in theatres. Empty until the weekly-trend endpoint is ready. */
+  /** Cumulative worldwide gross by week in theatres, aligned to Top25Response.weeks. Null before/after the film's tracked range. */
   weeklyGross: (number | null)[];
 }
 
@@ -40,12 +40,12 @@ function withWeeklyDefaults(data: {
   generatedAt: string;
   count: number;
   weeks?: number[];
-  films: Omit<Film, "weeklyGross">[];
+  films: (Omit<Film, "weeklyGross"> & { weeklyGross?: (number | null)[] })[];
 }): Top25Response {
   return {
     ...data,
     weeks: data.weeks ?? [],
-    films: data.films.map((f) => ({ ...f, weeklyGross: [] })),
+    films: data.films.map((f) => ({ ...f, weeklyGross: f.weeklyGross ?? [] })),
   };
 }
 
