@@ -52,12 +52,17 @@ body {
    does, browsers propagate body's background to paint the page canvas,
    which always renders *below* z-index-negative descendants — so a solid
    color on `body` was silently painting over this pseudo-element's
-   gradient at every viewport size, not just mobile. */
+   gradient at every viewport size, not just mobile.
+
+   z-index is -20, not -1: this layer is now opaque (it carries the solid
+   --bg color), so it must sit behind any per-page fixed background layer,
+   such as the blurred poster on movie detail pages (-z-10) — otherwise it
+   paints over them instead of just filling in the page canvas beneath. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -20;
   pointer-events: none;
   background:
     radial-gradient(ellipse 90% 60% at 50% -15%, rgba(217, 164, 65, 0.054), transparent 65%),
