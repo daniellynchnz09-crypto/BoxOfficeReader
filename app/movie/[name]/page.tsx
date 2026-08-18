@@ -50,7 +50,7 @@ export default async function MoviePage(props: PageProps<"/movie/[name]">) {
             alt=""
             fill
             sizes="100vw"
-            className="scale-125 object-cover opacity-35 blur-3xl"
+            className="scale-125 object-cover opacity-35 blur-[38px]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-bg/42 via-bg/56 to-bg/70" />
         </div>

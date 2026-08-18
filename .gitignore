@@ -43,3 +43,7 @@ next-env.d.ts
 # dev server logs
 dev.log
 dev.err.log
+
+# local dev/debug screenshots and Playwright MCP output
+/dev-screenshots/
+/.playwright-mcp/
