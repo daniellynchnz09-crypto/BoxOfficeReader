@@ -34,6 +34,8 @@ export interface FilmDetail {
   plot: string;
   director: string;
   cast: string;
+  weeks: number[];
+  weeklyGross: (number | null)[];
 }
 
 function withWeeklyDefaults(data: {
@@ -92,5 +94,5 @@ export async function getFilmDetail(name: string): Promise<FilmDetail | null> {
 
   const data = await res.json();
   if (data.error) return null;
-  return data;
+  return { ...data, weeks: data.weeks ?? [], weeklyGross: data.weeklyGross ?? [] };
 }

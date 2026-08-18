@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getFilmDetail } from "@/lib/n8n";
 import { formatGross, formatReleaseDate } from "@/lib/format";
+import { TrendChart } from "@/components/TrendChart";
 
 export default async function MoviePage(props: PageProps<"/movie/[name]">) {
   const { name: encodedName } = await props.params;
@@ -133,6 +134,10 @@ export default async function MoviePage(props: PageProps<"/movie/[name]">) {
           {film.funFact}
         </p>
       )}
+
+      <div className="mt-10 border-t border-surface-border pt-6">
+        <TrendChart weeks={film.weeks} values={film.weeklyGross} />
+      </div>
 
       {film.imdbLink && (
         <a
