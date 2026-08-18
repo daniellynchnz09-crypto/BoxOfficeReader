@@ -91,7 +91,7 @@ function TrendMultiChart({
   const yForValue = (value: number) =>
     PADDING.top + plotH - (value / scaleMax) * plotH;
 
-  const xTickWeeks = pickTickIndices(weeks.length, 10).map((i) => weeks[i]);
+  const xTickWeeks = pickTickIndices(weeks.length, 6).map((i) => weeks[i]);
 
   return (
     <div>
@@ -121,7 +121,7 @@ function TrendMultiChart({
                 dominantBaseline="middle"
                 fill="var(--muted-dim)"
                 fontFamily="var(--font-ledger)"
-                fontSize={9}
+                fontSize={12}
               >
                 {formatAxisGross(tick)}
               </text>
@@ -133,11 +133,11 @@ function TrendMultiChart({
           <text
             key={week}
             x={xForWeek(week)}
-            y={HEIGHT - PADDING.bottom + 18}
+            y={HEIGHT - PADDING.bottom + 20}
             textAnchor="middle"
             fill="var(--muted-dim)"
             fontFamily="var(--font-ledger)"
-            fontSize={9}
+            fontSize={12}
           >
             Wk {week}
           </text>

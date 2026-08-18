@@ -72,7 +72,7 @@ export function FilmCard({
           <Link
             href={`/movie/${encodeURIComponent(film.name)}`}
             onClick={(e) => e.stopPropagation()}
-            className="truncate font-body text-base text-cream underline-offset-4 hover:text-gold-soft hover:underline sm:text-lg"
+            className="block truncate font-body text-base text-cream underline-offset-4 hover:text-gold-soft hover:underline sm:text-lg"
           >
             {film.name}
           </Link>

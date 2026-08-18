@@ -53,7 +53,7 @@ export function TrendChart({
     .join(" ");
   const areaPath = `${linePath} L${points[points.length - 1].x.toFixed(1)},${baseline.toFixed(1)} L${points[0].x.toFixed(1)},${baseline.toFixed(1)} Z`;
 
-  const xTickIdx = pickTickIndices(points.length, 8);
+  const xTickIdx = pickTickIndices(points.length, 6);
   const last = points[points.length - 1];
 
   return (
@@ -101,7 +101,7 @@ export function TrendChart({
                 dominantBaseline="middle"
                 fill="var(--muted-dim)"
                 fontFamily="var(--font-ledger)"
-                fontSize={9}
+                fontSize={12}
               >
                 {formatAxisGross(tick)}
               </text>
@@ -113,11 +113,11 @@ export function TrendChart({
           <text
             key={i}
             x={points[i].x}
-            y={HEIGHT - PADDING.bottom + 16}
+            y={HEIGHT - PADDING.bottom + 18}
             textAnchor="middle"
             fill="var(--muted-dim)"
             fontFamily="var(--font-ledger)"
-            fontSize={9}
+            fontSize={12}
           >
             Wk {points[i].week}
           </text>
