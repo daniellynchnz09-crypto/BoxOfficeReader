@@ -37,7 +37,6 @@ html {
 }
 
 body {
-  background: var(--bg);
   color: var(--cream);
   font-family: var(--font-body);
   position: relative;
@@ -46,7 +45,14 @@ body {
 /* Ambient glow, pinned to the viewport rather than the page. Uses a fixed
    pseudo-element instead of `background-attachment: fixed` on body, because
    that property has unreliable/degraded support on mobile browsers (notably
-   iOS Safari) and was the reason the glow disappeared on mobile entirely. */
+   iOS Safari) and was the reason the glow disappeared on mobile entirely.
+
+   The solid base color lives here too, as the bottom background layer,
+   rather than on `body` itself: when `html` has no background and `body`
+   does, browsers propagate body's background to paint the page canvas,
+   which always renders *below* z-index-negative descendants — so a solid
+   color on `body` was silently painting over this pseudo-element's
+   gradient at every viewport size, not just mobile. */
 body::before {
   content: "";
   position: fixed;
@@ -55,7 +61,8 @@ body::before {
   pointer-events: none;
   background:
     radial-gradient(ellipse 90% 60% at 50% -15%, rgba(217, 164, 65, 0.054), transparent 65%),
-    radial-gradient(ellipse 70% 55% at 100% 105%, rgba(179, 36, 44, 0.042), transparent 70%);
+    radial-gradient(ellipse 70% 55% at 100% 105%, rgba(179, 36, 44, 0.042), transparent 70%),
+    var(--bg);
 }
 
 /* Marquee bulb strip — the recurring cinema-house texture used behind headers */

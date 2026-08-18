@@ -32,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${marquee.variable} ${editorial.variable} ${ledger.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-bg">{children}</body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
