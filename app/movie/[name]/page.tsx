@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getFilmDetail } from "@/lib/n8n";
+import { getFilmDetail, getTop25 } from "@/lib/n8n";
 import { formatGross, formatReleaseDate } from "@/lib/format";
+
+export const revalidate = 21600;
+
+export async function generateStaticParams() {
+  const { films } = await getTop25();
+  return films.map((film) => ({ name: encodeURIComponent(film.name) }));
+}
 
 export default async function MoviePage(props: PageProps<"/movie/[name]">) {
   const { name: encodedName } = await props.params;

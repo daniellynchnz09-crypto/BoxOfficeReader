@@ -83,7 +83,7 @@ export async function getFilmDetail(name: string): Promise<FilmDetail | null> {
 
   const res = await fetch(`${url}?name=${encodeURIComponent(name)}`, {
     headers: webhookHeaders(),
-    next: { revalidate: 300 },
+    next: { revalidate: 21600 },
   });
 
   if (!res.ok) {

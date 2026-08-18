@@ -36,7 +36,9 @@ export function FilmCard({
         aria-expanded={expanded}
         className="flex w-full cursor-pointer items-center gap-4 p-3 text-left sm:gap-5 sm:p-4"
       >
-        <div className={`ticket-stub ${film.rank === 1 ? "ticket-stub--top" : ""}`}>
+        <div
+          className={`ticket-stub ${film.rank === 1 ? "ticket-stub--top" : ""} ${expanded ? "rank-glow" : ""}`}
+        >
           {film.rank === 1 && (
             <svg
               viewBox="0 0 24 16"
@@ -70,7 +72,7 @@ export function FilmCard({
           <Link
             href={`/movie/${encodeURIComponent(film.name)}`}
             onClick={(e) => e.stopPropagation()}
-            className={`truncate font-body text-base text-cream underline-offset-4 hover:text-gold-soft hover:underline sm:text-lg ${expanded ? "title-glow" : ""}`}
+            className="truncate font-body text-base text-cream underline-offset-4 hover:text-gold-soft hover:underline sm:text-lg"
           >
             {film.name}
           </Link>

@@ -41,6 +41,8 @@ body {
     radial-gradient(ellipse 90% 60% at 50% -15%, rgba(217, 164, 65, 0.18), transparent 65%),
     radial-gradient(ellipse 70% 55% at 100% 105%, rgba(179, 36, 44, 0.14), transparent 70%),
     var(--bg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--cream);
   font-family: var(--font-body);
 }
@@ -124,8 +126,8 @@ body {
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
 }
 
-/* Gold glow reused on a film's title once its card is expanded open */
-.title-glow {
+/* Gold glow reused on a film's rank number once its card is expanded open */
+.rank-glow {
   text-shadow:
     0 0 14px rgba(217, 164, 65, 0.55),
     0 0 30px rgba(217, 164, 65, 0.3);
